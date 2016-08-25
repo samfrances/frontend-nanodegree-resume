@@ -38,3 +38,14 @@ var education = {
 
 $('#main').append("<p>" + work["position"] + "</p>")
           .append("<p>" + education.name + "</p>");
+
+var education2 = {
+	"schools": [
+		{
+			"name": "Gotham University",
+			"city": "Gotham City",
+			"degree": "BA",
+			"major": "Superhero Studies"
+		}
+	]
+}
