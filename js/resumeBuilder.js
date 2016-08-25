@@ -22,3 +22,19 @@ var bioFormatted = Object.keys(bio).map(function(key) {
 
 $('#main').append('<img src="' + bio.pictureURL +'" alt="Me">')
 		  .append("<ul>" + bioFormatted + "</ul>");
+
+var work = {
+	employer: 'Big Company',
+	position: 'Web Developer',
+	yearsWorked: 4,
+	city: 'Metropolis',
+}
+
+var education = {
+	name: 'Gotham University',
+	years: 3,
+	city: 'Gotham City',
+}
+
+$('#main').append("<p>" + work["position"] + "</p>")
+          .append("<p>" + education.name + "</p>");
