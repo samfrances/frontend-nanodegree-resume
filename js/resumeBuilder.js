@@ -1,51 +1,81 @@
-var name = 'Sam Frances';
-var role = 'Web Developer';
-var formattedName = HTMLheaderName.replace("%data%", name);
-var formattedRole = HTMLheaderRole.replace("%data%", role);
-$("#header").prepend(formattedRole).prepend(formattedName);
+var work = [
+	{
+		"employer": "",
+		"title": "",
+		"location": "",
+		"dates": {
+			"start": "",
+			"end": ""
+		},
+		"description": ""
+	},
+	{
+		"employer": "",
+		"title": "",
+		"location": "",
+		"dates": {
+			"start": "",
+			"end": ""
+		},
+		"description": ""
+	}
+]
+
+var projects = [
+	{
+		"title": "",
+		"dates": {
+			"start": "",
+			"end": ""
+		},
+		"description": "",
+		"images": []
+	},
+	{
+		"title": "",
+		"dates": {
+			"start": "",
+			"end": ""
+		},
+		"description": "",
+		"images": []
+	}
+]
 
 var bio = {
-	name: 'Sam Frances',
-	role: "Web Developer",
-	contactInfo: 'sam@samfrances.uk',
-	pictureURL: 'images/fry.jpg',
-	welcomeMessage: 'Welcome!',
-	skills: ['Python', 'Javascript'],
-}
-
-var bioFormatted = Object.keys(bio).map(function(key) {
-	if (key === 'pictureURL') {
-		return '';
+	"name": "",
+	"role": "",
+	"welcomeMessage": "",
+	"contacts": {
+		"mobile": "",
+		"email": "",
+		"github": "",
+		"twitter": "",
+		"location": ""
 	}
-	return "<li>" + key + ": " + bio[key] + "</li>";
-}).join('');
-
-$('#main').append('<img src="' + bio.pictureURL +'" alt="Me">')
-		  .append("<ul>" + bioFormatted + "</ul>");
-
-var work = {
-	employer: 'Big Company',
-	position: 'Web Developer',
-	yearsWorked: 4,
-	city: 'Metropolis',
 }
 
-var education = {
-	name: 'Gotham University',
-	years: 3,
-	city: 'Gotham City',
-}
-
-$('#main').append("<p>" + work["position"] + "</p>")
-          .append("<p>" + education.name + "</p>");
-
-var education2 = {
-	"schools": [
-		{
-			"name": "Gotham University",
-			"city": "Gotham City",
-			"degree": "BA",
-			"major": "Superhero Studies"
-		}
-	]
-}
+var education = [
+	{
+		"name": "",
+		"location": "",
+		"degree": "",
+		"majors": [],
+		"dates": {
+			"start": "",
+			"end": ""
+		},
+		"url": ""
+	},
+	{
+		"name": "",
+		"location": "",
+		"degree": "",
+		"majors": [],
+		"dates": {
+			"start": "",
+			"end": ""
+		},
+		"url": ""
+	}
+]
