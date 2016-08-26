@@ -1,34 +1,40 @@
-var work = [
-	{
-		"employer": "Company A",
-		"title": "Developer",
-		"location": "",
-		"dates": "",
-		"description": ""
-	},
-	{
-		"employer": "Company B",
-		"title": "Programmer",
-		"location": "",
-		"dates": "",
-		"description": ""
-	}
-]
+var work = {
+	"jobs": [
+		{
+			"employer": "Company A",
+			"title": "Developer",
+			"location": "",
+			"dates": "",
+			"description": ""
+		},
+		{
+			"employer": "Company B",
+			"title": "Programmer",
+			"location": "",
+			"dates": "",
+			"description": ""
+		}
+	]
+}
 
-var projects = [
-	{
-		"title": "",
-		"dates": "",
-		"description": "",
-		"images": []
-	},
-	{
-		"title": "",
-		"dates": "",
-		"description": "",
-		"images": []
-	}
-]
+var projects = {
+	"projects": [
+		{
+			"title": "",
+			"dates": "",
+			"description": "",
+			"images": []
+		},
+		{
+			"title": "",
+			"dates": "",
+			"description": "",
+			"images": []
+		}
+	]
+}
+
+
 
 var bio = {
 	"name": "",
@@ -45,24 +51,26 @@ var bio = {
 	"biopic": "",
 }
 
-var education = [
-	{
-		"name": "",
-		"location": "",
-		"degree": "",
-		"majors": [],
-		"dates": "",
-		"url": ""
-	},
-	{
-		"name": "",
-		"location": "",
-		"degree": "",
-		"majors": [],
-		"dates": "",
-		"url": ""
-	}
-]
+var education = {
+	"schools": [
+		{
+			"name": "",
+			"location": "",
+			"degree": "",
+			"majors": [],
+			"dates": "",
+			"url": ""
+		},
+		{
+			"name": "",
+			"location": "",
+			"degree": "",
+			"majors": [],
+			"dates": "",
+			"url": ""
+		}
+	]
+}
 
 if ( 'skills' in bio && bio.skills.length > 0 ) {
 	$( '#header' ).append( HTMLskillsStart );
@@ -72,8 +80,8 @@ if ( 'skills' in bio && bio.skills.length > 0 ) {
 	});
 }
 
-for ( job in work ) {
-	var job = work[job];
+for ( var i in work.jobs ) {
+	var job = work.jobs[i];
 	$( '#workExperience' ).append( HTMLworkStart );
 	var employer = HTMLworkEmployer.replace( '%data%', job.employer );
 	var title = HTMLworkTitle.replace( '%data%', job.title );
