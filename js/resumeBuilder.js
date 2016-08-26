@@ -1,3 +1,5 @@
+"use strict";
+
 var LIPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec " +
             "nec erat efficitur, fermentum risus sit amet, consequat orci. " +
             "Sed quis condimentum leo. Pellentesque ac vestibulum ante. Nunc " +
@@ -28,16 +30,30 @@ var work = {
 var projects = {
     "projects": [
         {
-            "title": "",
-            "dates": "",
-            "description": "",
-            "images": []
+            "title": "Fun Project",
+            "dates": "2010-2011",
+            "description": LIPSUM,
+            "images": [
+                "images/197x148.gif",
+                "images/197x148.gif",
+            ]
         },
         {
-            "title": "",
-            "dates": "",
-            "description": "",
-            "images": []
+            "title": "Challenging Project",
+            "dates": "2014-16",
+            "description": LIPSUM,
+            "images": [
+                "images/197x148.gif"
+            ]
+        },
+        {
+            "title": "Silly Project",
+            "dates": "2015-16",
+            "description": LIPSUM,
+            "images": [
+                "images/197x148.gif",
+                "images/197x148.gif",
+            ]
         }
     ]
 }
@@ -80,16 +96,18 @@ var education = {
     ]
 }
 
-if ( 'skills' in bio && bio.skills.length > 0 ) {
-    $( '#header' ).append( HTMLskillsStart );
-    var $skills = $( '#skills' );
-    bio[ 'skills' ].forEach(function( skill ) {
-        $skills.append( HTMLskills.replace( '%data%', skill ) )
-    });
-}
+bio.display = function() {
+    if ( 'skills' in bio && bio.skills.length > 0 ) {
+        $( '#header' ).append( HTMLskillsStart );
+        var $skills = $( '#skills' );
+        bio[ 'skills' ].forEach(function( skill ) {
+            $skills.append( HTMLskills.replace( '%data%', skill ) )
+        });
+    }
+};
 
-function displayWork() {
-    work.jobs.forEach(function( job ) {
+work.display = function() {
+    this.jobs.forEach(function( job ) {
 
         // Create work entry
         $( '#workExperience' ).append( HTMLworkStart );
@@ -112,18 +130,43 @@ function displayWork() {
         // Add description
         $workentry.append( HTMLworkDescription.replace( "%data%", job.description) );
     });
-}
+};
 
-displayWork();
+projects.display = function() {
+    this.projects.forEach( function( project ) {
 
-$(document).click(function(loc) {
-    logClicks(loc.pageX, loc.pageY);
-});
+        // Create project entry
+        $( '#projects' ).append( HTMLprojectStart );
 
-$( '#main' ).append( internationalizeButton );
+        // Cache project entry
+        var $projectentry = $( '.project-entry:last' );
 
-function inName( name ) {
-    name = name.trim().split(" ");
-    name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
-    return name[0] + " " + name[1].toUpperCase();
-}
+        // Add title
+
+        $projectentry.append(
+            HTMLprojectTitle.replace( '%data%', project.title )
+        );
+
+        // Add project dates to entry
+        $projectentry.append( HTMLprojectDates.replace( '%data%',
+                                                        project.dates ) );
+
+        // Add project description to entry
+        $projectentry.append(
+            HTMLprojectDescription.replace( '%data%', project.description )
+        );
+
+        project.images.forEach(function( url ) {
+            $projectentry.append( HTMLprojectImage.replace( '%data%', url ) );
+        });
+    });
+};
+
+bio.display();
+work.display();
+projects.display()
+
+
+// Add map
+
+$( '#mapDiv' ).append( googleMap );
