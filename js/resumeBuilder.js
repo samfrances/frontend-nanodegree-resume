@@ -3,20 +3,14 @@ var work = [
 		"employer": "",
 		"title": "",
 		"location": "",
-		"dates": {
-			"start": "",
-			"end": ""
-		},
+		"dates": "",
 		"description": ""
 	},
 	{
 		"employer": "",
 		"title": "",
 		"location": "",
-		"dates": {
-			"start": "",
-			"end": ""
-		},
+		"dates": "",
 		"description": ""
 	}
 ]
@@ -24,19 +18,13 @@ var work = [
 var projects = [
 	{
 		"title": "",
-		"dates": {
-			"start": "",
-			"end": ""
-		},
+		"dates": "",
 		"description": "",
 		"images": []
 	},
 	{
 		"title": "",
-		"dates": {
-			"start": "",
-			"end": ""
-		},
+		"dates": "",
 		"description": "",
 		"images": []
 	}
@@ -63,10 +51,7 @@ var education = [
 		"location": "",
 		"degree": "",
 		"majors": [],
-		"dates": {
-			"start": "",
-			"end": ""
-		},
+		"dates": "",
 		"url": ""
 	},
 	{
@@ -74,10 +59,7 @@ var education = [
 		"location": "",
 		"degree": "",
 		"majors": [],
-		"dates": {
-			"start": "",
-			"end": ""
-		},
+		"dates": "",
 		"url": ""
 	}
 ]
