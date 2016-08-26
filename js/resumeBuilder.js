@@ -52,7 +52,9 @@ var bio = {
 		"github": "",
 		"twitter": "",
 		"location": ""
-	}
+	},
+	"skills": ["Python", "Javascript"],
+	"biopic": "",
 }
 
 var education = [
@@ -79,3 +81,11 @@ var education = [
 		"url": ""
 	}
 ]
+
+if ( 'skills' in bio && bio[ 'skills' ].length > 0 ) {
+	$( '#header' ).append( HTMLskillsStart );
+	var $skills = $( '#skills' );
+	bio[ 'skills' ].forEach(function( skill ) {
+		$skills.append( HTMLskills.replace( '%data%', skill ) )
+	});
+}
