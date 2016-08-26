@@ -88,26 +88,34 @@ if ( 'skills' in bio && bio.skills.length > 0 ) {
     });
 }
 
-work.jobs.forEach(function( job ) {
+function displayWork() {
+    work.jobs.forEach(function( job ) {
 
-    // Create work entry
-    $( '#workExperience' ).append( HTMLworkStart );
+        // Create work entry
+        $( '#workExperience' ).append( HTMLworkStart );
 
-    // Cache work entry
-    var $workentry = $( '.work-entry:last' );
+        // Cache work entry
+        var $workentry = $( '.work-entry:last' );
 
-    // Create title line
-    var employer = HTMLworkEmployer.replace( '%data%', job.employer );
-    var title = HTMLworkTitle.replace( '%data%', job.title );
+        // Create title line
+        var employer = HTMLworkEmployer.replace( '%data%', job.employer );
+        var title = HTMLworkTitle.replace( '%data%', job.title );
 
-    $workentry.append( employer + title );
+        $workentry.append( employer + title );
 
-    // Add  work dates
-    $workentry.append( HTMLworkDates.replace( "%data%", job.dates ) );
+        // Add  work dates
+        $workentry.append( HTMLworkDates.replace( "%data%", job.dates ) );
 
-    // Add location
-    $workentry.append( HTMLworkLocation.replace( "%data%", job.location ) );
+        // Add location
+        $workentry.append( HTMLworkLocation.replace( "%data%", job.location ) );
 
-    // Add description
-    $workentry.append( HTMLworkDescription.replace( "%data%", job.description) );
+        // Add description
+        $workentry.append( HTMLworkDescription.replace( "%data%", job.description) );
+    });
+}
+
+displayWork();
+
+$(document).click(function(loc) {
+    logClicks(loc.pageX, loc.pageY);
 });
