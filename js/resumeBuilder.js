@@ -1,14 +1,14 @@
 var work = [
 	{
-		"employer": "",
-		"title": "",
+		"employer": "Company A",
+		"title": "Developer",
 		"location": "",
 		"dates": "",
 		"description": ""
 	},
 	{
-		"employer": "",
-		"title": "",
+		"employer": "Company B",
+		"title": "Programmer",
 		"location": "",
 		"dates": "",
 		"description": ""
@@ -64,10 +64,18 @@ var education = [
 	}
 ]
 
-if ( 'skills' in bio && bio[ 'skills' ].length > 0 ) {
+if ( 'skills' in bio && bio.skills.length > 0 ) {
 	$( '#header' ).append( HTMLskillsStart );
 	var $skills = $( '#skills' );
 	bio[ 'skills' ].forEach(function( skill ) {
 		$skills.append( HTMLskills.replace( '%data%', skill ) )
 	});
+}
+
+for ( job in work ) {
+	var job = work[job];
+	$( '#workExperience' ).append( HTMLworkStart );
+	var employer = HTMLworkEmployer.replace( '%data%', job.employer );
+	var title = HTMLworkTitle.replace( '%data%', job.title );
+	$( '.work-entry:last' ).append( employer + title );
 }
