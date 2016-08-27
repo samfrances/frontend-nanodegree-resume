@@ -81,7 +81,7 @@ var education = {
             "name": "University College London",
             "location": "London, UK",
             "degree": "M.A.",
-            "majors": [ "inguistics" ],
+            "majors": [ "Linguistics" ],
             "dates": "2009-2010",
             "url": "https://www.ucl.ac.uk/"
         },
@@ -92,6 +92,20 @@ var education = {
             "majors": [ "Philosophy" ],
             "dates": "2006-2009",
             "url": "http://www.kcl.ac.uk"
+        }
+    ],
+    "onlineCourses": [
+        {
+            "title": "Full Stack Web Developer Nanodegree",
+            "school": "Udacity",
+            "dates": "2016",
+            "url": "https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004"
+        },
+        {
+            "title": "Front End Web Developer Nanodegree",
+            "school": "Udacity",
+            "dates": "In progress",
+            "url": "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
         }
     ]
 };
@@ -163,12 +177,12 @@ bio.display = function() {
 
     // Display role
     if ( 'role' in bio && bio.role.length > 0 ) {
-        $header.prepend( HTMLheaderRole.replace("%data%", bio.role ) );
+        $header.prepend( HTMLheaderRole.replace("%data%", this.role ) );
     }
 
     // Display name
     if ( 'name' in bio && bio.name.length > 0 ) {
-        $header.prepend( HTMLheaderName.replace( "%data%", bio.name ) );
+        $header.prepend( HTMLheaderName.replace( "%data%", this.name ) );
     }
 
     // Display contacts
@@ -184,14 +198,13 @@ bio.display = function() {
     var $topContacts = $( '#topContacts' )
     Object.keys( bio.contacts ).forEach(function( contact ) {
         if ( Object.keys( contactTemplates ).indexOf(contact) !== -1 ) {
-            console.log(contact);
             $topContacts.append(
                 contactTemplates[ contact ].replace( /%data%/g, bio.contacts[ contact ] )
             );
         } else {
             $topContacts.append(
                 HTMLcontactGeneric.replace( "%contact%", contact )
-                                  .replace( "%data%", bio.contacts[ contact ] )
+                                  .replace( "%data%", this.contacts[ contact ] )
             );
         }
     });
@@ -220,18 +233,16 @@ bio.display = function() {
 
 education.display = function() {
     var $edu = $( '#education' );
-    education.schools.forEach(function( school ) {
+    this.schools.forEach(function( school ) {
         $edu.append( HTMLschoolStart );
         var $entry = $( '.education-entry:last' );
 
-        // Name of school
-        $entry.append( 
-            HTMLschoolName.replace( "%data%", school.name )
-                          .replace( "#", school.url )
-        );
+        // Name of school and degree
+        var school_degree = HTMLschoolName.replace( "%data%", school.name )
+                                          .replace( "#", school.url )
+        school_degree += HTMLschoolDegree.replace( "%data%", school.degree )
 
-        // Location of school 
-        $entry.append( HTMLschoolDegree.replace( "%data%", school.degree ) );
+        $entry.append( school_degree );
 
         // Dates
         $entry.append( HTMLschoolDates.replace( "%data%", school.dates ) );
@@ -242,8 +253,30 @@ education.display = function() {
         school.majors.forEach(function( major ) {
             $entry.append( HTMLschoolMajor.replace( "%data%", major ) );
         });
-
     });
+
+    if ( 'onlineCourses' in this && this.onlineCourses.length > 0 ) {
+        // Add online courses heading
+        $edu.append( HTMLonlineClasses );
+
+        // Fill in course entries
+        this.onlineCourses.forEach(function( course ) {
+            $edu.append( HTMLschoolStart );
+            var $entry = $( '.education-entry:last' );
+
+            var school_course = HTMLonlineTitle.replace( "%data%", course.title )
+                               .replace( "#", course.url )
+            school_course += HTMLonlineSchool.replace( "%data%", course.school )
+            
+            $entry.append( school_course )
+                  .append( HTMLonlineDates.replace( "%data%", course.dates ) )
+                  .append(
+                        HTMLonlineURL.replace( "%data%", course.url )
+                                     .replace( "#", course.url ) 
+                   );
+
+        });
+    }
 };
 
 // Display github statistics
