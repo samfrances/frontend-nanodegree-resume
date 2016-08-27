@@ -61,18 +61,18 @@ var projects = {
 
 
 var bio = {
-    "name": "",
-    "role": "",
-    "welcomeMessage": "",
+    "name": "Sam Frances",
+    "role": "Web Developer",
+    "welcomeMessage": "Welcome to my resume.",
     "contacts": {
-        "mobile": "",
-        "email": "",
-        "github": "",
-        "twitter": "",
-        "location": ""
+        "mobile": "0000 000 000",
+        "email": "sam@samfrances.uk",
+        "github": "samfrances",
+        "twitter": "existentialcoms",
+        "location": "London, UK"
     },
     "skills": ["Python", "Javascript"],
-    "biopic": "",
+    "biopic": "images/fry.jpg",
 }
 
 var education = {
@@ -97,8 +97,57 @@ var education = {
 }
 
 bio.display = function() {
+
+    // Cache header
+    var $header = $( '#header' );
+
+    // Display role
+    if ( 'role' in bio && bio.role.length > 0 ) {
+        $header.prepend( HTMLheaderRole.replace("%data%", bio.role ) );
+    }
+
+    // Display name
+    if ( 'name' in bio && bio.name.length > 0 ) {
+        $header.prepend( HTMLheaderName.replace( "%data%", bio.name ) );
+    }
+
+    // Display contacts
+
+    var contactTemplates = {
+        "mobile": HTMLmobile,
+        "email": HTMLemail,
+        "github": HTMLtwitter,
+        "twitter": HTMLgithub,
+        "blog": HTMLblog,
+        "location": HTMLlocation
+    };
+
+    var $topContacts = $( '#topContacts' )
+    Object.keys( bio.contacts ).forEach(function( contact ) {
+        if ( contact in Object.keys( contactTemplates ) ) {
+            $topContacts.append(
+                contactTemplates[ contact ].replace( "%data%", bio.contacts[ contact ] )
+            );
+        } else {
+            $topContacts.append(
+                HTMLcontactGeneric.replace( "%contact%", contact )
+                                  .replace( "%data%", bio.contacts[ contact ] )
+            );
+        }
+    });
+
+    if ( 'biopic' in bio && bio.biopic.length > 0 ) {
+        $header.append( HTMLbioPic.replace( "%data%", bio.biopic ) );
+    }
+
+    // Display welcome message
+    if ( 'welcomeMessage' in bio && bio.welcomeMessage.length > 0 ) {
+        $header.append( HTMLwelcomeMsg.replace( "%data%", bio.welcomeMessage ) );
+    }
+
+    // Display skills
     if ( 'skills' in bio && bio.skills.length > 0 ) {
-        $( '#header' ).append( HTMLskillsStart );
+        $header.append( HTMLskillsStart );
         var $skills = $( '#skills' );
         bio[ 'skills' ].forEach(function( skill ) {
             $skills.append( HTMLskills.replace( '%data%', skill ) )
