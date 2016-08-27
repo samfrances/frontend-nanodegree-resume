@@ -92,6 +92,11 @@ a {
   display: block;
 }
 
+li .white-text a {
+  display: inline;
+  color: #FFF;
+}
+
 .welcome-message {
   font-style: italic;
   font-size: 18px;

@@ -171,18 +171,18 @@ bio.display = function() {
 
     var contactTemplates = {
         "mobile": HTMLmobile,
-        "email": HTMLemail,
-        "github": HTMLtwitter,
-        "twitter": HTMLgithub,
+        "email": HTMLemail.replace("%data%", '<a href="mailto:%data%">%data%</a>'),
+        "github": HTMLgithub.replace("%data%", '<a href="http://www.github.com/%data%">%data%</a>'),
+        "twitter": HTMLtwitter.replace("%data%", '<a href="http://www.twitter.com/%data%">@%data%</a>'),
         "blog": HTMLblog,
         "location": HTMLlocation
     };
-
     var $topContacts = $( '#topContacts' )
     Object.keys( bio.contacts ).forEach(function( contact ) {
-        if ( contact in Object.keys( contactTemplates ) ) {
+        if ( Object.keys( contactTemplates ).indexOf(contact) !== -1 ) {
+            console.log(contact);
             $topContacts.append(
-                contactTemplates[ contact ].replace( "%data%", bio.contacts[ contact ] )
+                contactTemplates[ contact ].replace( /%data%/g, bio.contacts[ contact ] )
             );
         } else {
             $topContacts.append(
