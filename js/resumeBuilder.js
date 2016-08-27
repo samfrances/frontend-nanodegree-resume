@@ -196,6 +196,9 @@ bio.display = function() {
         }
     });
 
+    // Display contacts in footer
+    $('#footerContacts').append( $( '#topContacts > li' ).clone() );
+
     if ( 'biopic' in bio && bio.biopic.length > 0 ) {
         $header.append( HTMLbioPic.replace( "%data%", bio.biopic ) );
     }
