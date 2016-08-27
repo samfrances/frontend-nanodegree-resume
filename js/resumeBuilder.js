@@ -25,7 +25,7 @@ var work = {
             "description": LIPSUM
         }
     ]
-}
+};
 
 var projects = {
     "projects": [
@@ -56,7 +56,7 @@ var projects = {
             ]
         }
     ]
-}
+};
 
 
 
@@ -73,28 +73,84 @@ var bio = {
     },
     "skills": ["Python", "Javascript"],
     "biopic": "images/fry.jpg",
-}
+};
 
 var education = {
     "schools": [
         {
-            "name": "",
-            "location": "",
-            "degree": "",
-            "majors": [],
-            "dates": "",
-            "url": ""
+            "name": "University College London",
+            "location": "London, UK",
+            "degree": "M.A.",
+            "majors": [ "inguistics" ],
+            "dates": "2009-2010",
+            "url": "https://www.ucl.ac.uk/"
         },
         {
-            "name": "",
-            "location": "",
-            "degree": "",
-            "majors": [],
-            "dates": "",
-            "url": ""
+            "name": "King's College London",
+            "location": "London, UK",
+            "degree": "B.A.",
+            "majors": [ "Philosophy" ],
+            "dates": "2006-2009",
+            "url": "http://www.kcl.ac.uk"
         }
     ]
-}
+};
+
+work.display = function() {
+    this.jobs.forEach(function( job ) {
+
+        // Create work entry
+        $( '#workExperience' ).append( HTMLworkStart );
+
+        // Cache work entry
+        var $workentry = $( '.work-entry:last' );
+
+        // Create title line
+        var employer = HTMLworkEmployer.replace( '%data%', job.employer );
+        var title = HTMLworkTitle.replace( '%data%', job.title );
+
+        $workentry.append( employer + title );
+
+        // Add  work dates
+        $workentry.append( HTMLworkDates.replace( "%data%", job.dates ) );
+
+        // Add location
+        $workentry.append( HTMLworkLocation.replace( "%data%", job.location ) );
+
+        // Add description
+        $workentry.append( HTMLworkDescription.replace( "%data%", job.description) );
+    });
+};
+
+projects.display = function() {
+    this.projects.forEach( function( project ) {
+
+        // Create project entry
+        $( '#projects' ).append( HTMLprojectStart );
+
+        // Cache project entry
+        var $projectentry = $( '.project-entry:last' );
+
+        // Add title
+
+        $projectentry.append(
+            HTMLprojectTitle.replace( '%data%', project.title )
+        );
+
+        // Add project dates to entry
+        $projectentry.append( HTMLprojectDates.replace( '%data%',
+                                                        project.dates ) );
+
+        // Add project description to entry
+        $projectentry.append(
+            HTMLprojectDescription.replace( '%data%', project.description )
+        );
+
+        project.images.forEach(function( url ) {
+            $projectentry.append( HTMLprojectImage.replace( '%data%', url ) );
+        });
+    });
+};
 
 bio.display = function() {
 
@@ -155,66 +211,38 @@ bio.display = function() {
     }
 };
 
-work.display = function() {
-    this.jobs.forEach(function( job ) {
+education.display = function() {
+    var $edu = $( '#education' );
+    education.schools.forEach(function( school ) {
+        $edu.append( HTMLschoolStart );
+        var $entry = $( '.education-entry:last' );
 
-        // Create work entry
-        $( '#workExperience' ).append( HTMLworkStart );
-
-        // Cache work entry
-        var $workentry = $( '.work-entry:last' );
-
-        // Create title line
-        var employer = HTMLworkEmployer.replace( '%data%', job.employer );
-        var title = HTMLworkTitle.replace( '%data%', job.title );
-
-        $workentry.append( employer + title );
-
-        // Add  work dates
-        $workentry.append( HTMLworkDates.replace( "%data%", job.dates ) );
-
-        // Add location
-        $workentry.append( HTMLworkLocation.replace( "%data%", job.location ) );
-
-        // Add description
-        $workentry.append( HTMLworkDescription.replace( "%data%", job.description) );
-    });
-};
-
-projects.display = function() {
-    this.projects.forEach( function( project ) {
-
-        // Create project entry
-        $( '#projects' ).append( HTMLprojectStart );
-
-        // Cache project entry
-        var $projectentry = $( '.project-entry:last' );
-
-        // Add title
-
-        $projectentry.append(
-            HTMLprojectTitle.replace( '%data%', project.title )
+        // Name of school
+        $entry.append( 
+            HTMLschoolName.replace( "%data%", school.name )
+                          .replace( "#", school.url )
         );
 
-        // Add project dates to entry
-        $projectentry.append( HTMLprojectDates.replace( '%data%',
-                                                        project.dates ) );
+        // Location of school 
+        $entry.append( HTMLschoolDegree.replace( "%data%", school.degree ) );
 
-        // Add project description to entry
-        $projectentry.append(
-            HTMLprojectDescription.replace( '%data%', project.description )
-        );
+        // Dates
+        $entry.append( HTMLschoolDates.replace( "%data%", school.dates ) );
 
-        project.images.forEach(function( url ) {
-            $projectentry.append( HTMLprojectImage.replace( '%data%', url ) );
+        // Location
+        $entry.append( HTMLschoolLocation.replace( "%data%", school.location ) );
+
+        school.majors.forEach(function( major ) {
+            $entry.append( HTMLschoolMajor.replace( "%data%", major ) );
         });
+
     });
 };
 
-bio.display();
-work.display();
-projects.display()
-
+// Display all data objects
+[ work, projects, bio, education ].forEach(function( obj ) {
+    obj.display();
+}); 
 
 // Add map
 
