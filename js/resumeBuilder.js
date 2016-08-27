@@ -239,10 +239,48 @@ education.display = function() {
     });
 };
 
+// Display github statistics
+function displayGH() {
+    
+    // Cache list to store github stats
+    var $gh = $( '#github-stats' );
+
+    if ( 'github' in bio.contacts && bio.contacts.github.length > 0 ) {
+        var username = bio.contacts.github;
+        var url = 'https://api.github.com/users/' + username;
+
+        // List of data we want 
+        var data_keys = ['followers','following', 'public_repos', 'public_gists'];
+        
+        // Query API and fill in data
+        $.getJSON(url, function( data ) {
+            // Display categories of data in data_keys
+            data_keys.forEach(function( key ) {
+                if (key in data) {
+                    $gh.append(
+                        HTMLGithubStat.replace( "%title%", key.replace( "_", " " ) )
+                                      .replace( "%data%", data[key] )
+                    );
+                }
+            });
+
+            // Display yaer joined
+            if ('created_at' in data) {
+                var joined = (new Date(data["created_at"])).getFullYear().toString();
+                $gh.append(
+                    HTMLGithubStat.replace("%title%", "joined")
+                                  .replace("%data%", joined)
+                );
+            }
+        });
+    }
+}
+
 // Display all data objects
 [ work, projects, bio, education ].forEach(function( obj ) {
     obj.display();
 }); 
+displayGH();
 
 // Add map
 
