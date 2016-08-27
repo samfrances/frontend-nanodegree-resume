@@ -96,6 +96,10 @@ var education = {
     ]
 };
 
+var githubStats = {
+    "username": bio.contacts.github
+};
+
 work.display = function() {
     this.jobs.forEach(function( job ) {
 
@@ -240,14 +244,13 @@ education.display = function() {
 };
 
 // Display github statistics
-function displayGH() {
+githubStats.display = function() {
     
     // Cache list to store github stats
     var $gh = $( '#github-stats' );
 
-    if ( 'github' in bio.contacts && bio.contacts.github.length > 0 ) {
-        var username = bio.contacts.github;
-        var url = 'https://api.github.com/users/' + username;
+    if ( 'username' in this && this.username.length > 0 ) {
+        var url = 'https://api.github.com/users/' + this.username;
 
         // List of data we want 
         var data_keys = ['followers','following', 'public_repos', 'public_gists'];
@@ -273,14 +276,16 @@ function displayGH() {
                 );
             }
         });
+    } else {
+        $('#github').remove();
     }
-}
+};
 
 // Display all data objects
-[ work, projects, bio, education ].forEach(function( obj ) {
+[ work, projects, bio, education, githubStats ].forEach(function( obj ) {
     obj.display();
 }); 
-displayGH();
+
 
 // Add map
 
